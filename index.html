@@ -1,79 +1,82 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <style>
-      :root {
-        background-color: greenyellow;
-      }
-      h1 {
-        text-align: center;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-      }
-      #cord {
-        text-align: center;
-        color: white;
-        border: black solid;
-        background-color: black;
-        border-radius: 5%;
-        width: 500px;
-        height: 100px;
-        margin: 0 auto;
-        font-size: xx-large;
-        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
-          sans-serif;
-        padding: 50px;
-      }
-      #dvMap {
-        width: 500px;
-        height: 300px;
-        margin: 0 auto;
-      }
+        :root {
+            background-color: greenyellow;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        #cord {
+            text-align: center;
+            color: white;
+            border: black solid;
+            background-color: black;
+            border-radius: 5%;
+            width: 500px;
+            height: 100px;
+            margin: 0 auto;
+            font-size: xx-large;
+            font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+                sans-serif;
+            padding: 50px;
+        }
+
+        #dvMap {
+            width: 500px;
+            height: 300px;
+            margin: 0 auto;
+        }
     </style>
-    <script
-      async
-      defer
-      src="http://maps.googleapis.com/maps/api/js?sensor=true"
-    ></script>
+    <script async defer src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
     <script>
-        
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (p) {
-          var x = document.getElementById("cord");
-          var LatLng = new google.maps.LatLng(
-            p.coords.latitude,
-            p.coords.longitude
-          );
-          x.innerHTML =
-            "Latitude  : " +
-            p.coords.latitude +
-            "<br>Longitude : " +
-            p.coords.longitude;
-          var mapOptions = {
-            center: LatLng,
-            zoom: 13,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-          };
-          var map = new google.maps.Map(
-            document.getElementById("dvMap"),
-            mapOptions
-          );
-          var marker = new google.maps.Marker({
-            position: LatLng,
-            map: map,
-          });
-        });
-      } else {
-        var x = document.getElementById("cord");
-        x.innerHTML = "Not found";
-      }
+        function start() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (p) {
+                    var x = document.getElementById("cord");
+                    var LatLng = new google.maps.LatLng(
+                        p.coords.latitude,
+                        p.coords.longitude
+                    );
+                    x.innerHTML =
+                        "Latitude  : " +
+                        p.coords.latitude +
+                        "<br>Longitude : " +
+                        p.coords.longitude;
+                    var mapOptions = {
+                        center: LatLng,
+                        zoom: 13,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    };
+                    var map = new google.maps.Map(
+                        document.getElementById("dvMap"),
+                        mapOptions
+                    );
+                    var marker = new google.maps.Marker({
+                        position: LatLng,
+                        map: map,
+                    });
+                });
+            } else {
+                var x = document.getElementById("cord");
+                x.innerHTML = "Not found";
+            }
+        }
     </script>
-  </head>
-  <body>
+</head>
+
+<body onload="start();">
     <div class="head">
-      <h1>LATitude & LONGitude</h1>
+        <h1>LATitude & LONGitude</h1>
     </div>
     <div id="dvMap"></div>
     <br />
     <p id="cord"></p>
-  </body>
+</body>
+
 </html>
